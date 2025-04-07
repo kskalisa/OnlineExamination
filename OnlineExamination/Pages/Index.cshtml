@@ -1,0 +1,45 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["BodyClass"] = "HomePage";
+}
+@section Styles {
+    <style>
+        /* Add unique styles for the Index page */
+        body.HomePage {
+            background: url("/images/bg1.jpg") no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+
+        .index-content {
+            text-align: center;
+            margin-top: 10%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .index-content h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .index-content p {
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+    </style>
+}
+
+<div class="index-content">
+    <h1>Welcome to Online Examination Portal</h1>
+    <p>
+        Simplifying exams for students and administrators.
+        Manage, attend, and evaluate examinations effortlessly on a single platform.
+    </p>
+    <a class="btn btn-primary btn-lg mt-3" asp-page="/Login">Get Started</a>
+</div>

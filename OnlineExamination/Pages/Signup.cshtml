@@ -1,0 +1,64 @@
+﻿@page
+@model OnlineExamination.Pages.SignupModel
+@{
+}
+
+
+<div class="container d-flex justify-content-center align-items-center min-vh-90">
+
+	@*                        Login Container                          *@
+
+	<div class="row border rounded-5 p-3 bg-white shadow box-area">
+		<label id="messageLabel" class="text-@Model.MessageColor text-center fs-6">@Model.Message</label>
+
+		@*                        Left Box                                 *@
+		<div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
+
+			<div class="featured-image">
+				<img src="/images/signup1.jpg" class="img-fluid" style="width: 700px" />
+			</div>
+
+		</div>
+
+		@*                        Right Box                                *@
+
+		<div class="col-md-5 right-box">
+
+			<form method="post">
+
+				<div class="row align-items-center">
+
+					<div class="header-text mb-4">
+						<h4>Level Up Your Learning</h4>
+						<p class="fs-6"> Sign up to access engaging quizzes and exam insights.</p>
+					</div>
+
+					<div class="input-group mb-3">
+						<input type="email" class="form-control form-control-lg bg-light fs-6" name="Email" placeholder="Email address" />
+					</div>
+
+					<div class="input-group mb-3">
+						<input type="text" class="form-control form-control-lg bg-light fs-6" name="Username" placeholder="Username" />
+					</div>
+
+					<div class="input-group mb-4">
+						<input type="password" class="form-control form-control-lg bg-light fs-6" name="PasswordHash" placeholder="Password" />
+					</div>
+
+					<div class="input-group mb-3">
+						<button class="btn btn-lg btn-primary w-100 fs-6">Signup</button>
+					</div>
+
+					<div class="row">
+						<small class="text-center">Already have account? <a href="/Signin" style="text-decoration: none;">Login</a></small>
+					</div>
+
+				</div>
+
+			</form>
+
+		</div>
+
+	</div>
+
+</div>
