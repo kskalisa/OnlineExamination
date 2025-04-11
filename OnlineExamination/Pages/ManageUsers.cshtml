@@ -1,0 +1,189 @@
+﻿@page
+@model OnlineExamination.Pages.ManageUserModel
+@{
+}
+
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Manage Users";
+}
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        padding: 30px;
+        margin-top: 40px;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+    }
+
+    .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+</style>
+
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <nav class="sidebar bg-white vh-100 d-flex flex-column p-3 shadow-lg">
+        <button class="btn btn-outline-primary mb-3 d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+            Admin
+        </button>
+        <div class="collapse d-md-block" id="sidebarMenu">
+            <ul class="nav flex-column">
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/AdminDashboard" ? "active" : "")" href="/AdminDashboard">
+                        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageQuizzes" ? "active" : "")" href="/ManageQuizzes">
+                        <i class="fas fa-tasks me-2"></i> Manage Quizzes
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageQuestions" ? "active" : "")" href="/ManageQuestions">
+                        <i class="fas fa-question-circle me-2"></i> Manage Questions
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageCourses" ? "active" : "")" href="/ManageCourses">
+                        <i class="fa-regular fa-file me-2"></i> Manage Courses
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageUsers" ? "active" : "")" href="/ManageUsers">
+                        <i class="fas fa-users me-2"></i> Manage Users
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/Results" ? "active" : "")" href="/Results">
+                        <i class="fas fa-chart-bar me-2"></i> Results
+                    </a>
+                </li>
+            </ul>
+            <div class="mt-auto">
+                <a class="nav-link text-danger" href="/Logout">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content flex-grow-1 p-4">
+
+        <div class="container">
+            <h2 class="mb-4 text-primary"><i class="bi bi-people-fill"></i> Manage Users</h2>
+
+            <!-- Search and Filter -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by name or email">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-funnel-fill"></i></span>
+                        <select id="roleFilter" class="form-select">
+                            <option value="">Filter by Role</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Editor">Student</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 text-end">
+                    <button class="btn btn-success btn-icon w-100">
+                        <i class="bi bi-person-plus-fill"></i> Add New User
+                    </button>
+                </div>
+            </div>
+
+            <!-- User Table -->
+            <div class="table-responsive">
+                <table class="table table-hover text-center align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>User ID</th>
+                            <th><i class="bi bi-person-circle"></i> Name</th>
+                            <th><i class="bi bi-envelope-fill"></i> Email</th>
+                            <th><i class="bi bi-person-gear"></i> Role</th>
+                            <th><i class="bi bi-check-circle-fill"></i> Status</th>
+                            <th><i class="bi bi-tools"></i> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var user in Model.users)
+                        {
+                            <tr>
+                                <td>@user.UserId</td>
+                                <td>@user.Username</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    <select class="form-select form-select-sm role-dropdown">
+                                        <option>@user.Role</option>
+                                    </select>
+                                </td>
+                                <td><span class="badge bg-success">@user.IsActive</span></td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm me-1" title="Edit"><i class="bi bi-pencil-square"></i></button>
+                                    <button class="btn btn-danger btn-sm" title="Delete"><i class="bi bi-trash-fill"></i></button>
+                                </td>
+                            </tr>
+                            
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+        <!-- JS Search + Filter -->
+        <script>
+            const searchInput = document.getElementById('searchInput');
+            const roleFilter = document.getElementById('roleFilter');
+            const table = document.querySelector('table tbody');
+
+            function filterTable() {
+              const search = searchInput.value.toLowerCase();
+              const role = roleFilter.value;
+
+              Array.from(table.rows).forEach(row => {
+                const name = row.cells[1].textContent.toLowerCase();
+                const email = row.cells[2].textContent.toLowerCase();
+                const roleText = row.cells[3].querySelector('select').value;
+                const matchSearch = name.includes(search) || email.includes(search);
+                const matchRole = !role || role === roleText;
+
+                row.style.display = matchSearch && matchRole ? '' : 'none';
+              });
+            }
+
+            searchInput.addEventListener('keyup', filterTable);
+            roleFilter.addEventListener('change', filterTable);
+        </script>
+
+
+    </div>
+</div>

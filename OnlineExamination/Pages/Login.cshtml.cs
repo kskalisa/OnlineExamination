@@ -54,8 +54,7 @@ namespace OnlineExamination.Pages
 
                                 if (BCrypt.Net.BCrypt.Verify(plainPassword, theUsers.PasswordHash))
                                 {
-                                    if (theUsers.IsActive)
-                                    {
+                                     theUsers.IsActive = true;
                                         HttpContext.Session.SetInt32("userId", theUsers.UserId);
                                         HttpContext.Session.SetString("role", theUsers.Role);
                                         HttpContext.Session.SetString("username", theUsers.Username);
@@ -69,12 +68,7 @@ namespace OnlineExamination.Pages
 
                                             Response.Redirect("/StudentDashboard");
                                         }
-                                    }
-                                    //else
-                                    //{
-                                    //    Message = "Account doesn't exist";
-                                    //    MessageColor = "danger";
-                                    //}
+                                   
                                 }
                                 else
                                 {

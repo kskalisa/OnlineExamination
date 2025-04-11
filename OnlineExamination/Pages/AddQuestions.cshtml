@@ -1,0 +1,145 @@
+﻿@page
+@model OnlineExamination.Pages.AddQuestionsModel
+
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = "Add Questions";
+}
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <nav class="sidebar bg-white vh-100 d-flex flex-column p-3 shadow-lg">
+        <button class="btn btn-outline-primary mb-3 d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+            Admin
+        </button>
+        <div class="collapse d-md-block" id="sidebarMenu">
+            <ul class="nav flex-column">
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/AdminDashboard" ? "active" : "")" href="/AdminDashboard">
+                        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageQuizzes" ? "active" : "")" href="/ManageQuizzes">
+                        <i class="fas fa-tasks me-2"></i> Manage Quizzes
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageQuestions" ? "active" : "")" href="/ManageQuestions">
+                        <i class="fas fa-question-circle me-2"></i> Manage Questions
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageCourses" ? "active" : "")" href="/ManageCourses">
+                        <i class="fa-regular fa-file me-2"></i> Manage Courses
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageUsers" ? "active" : "")" href="/ManageUsers">
+                        <i class="fas fa-users me-2"></i> Manage Users
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/Results" ? "active" : "")" href="/Results">
+                        <i class="fas fa-chart-bar me-2"></i> Results
+                    </a>
+                </li>
+            </ul>
+            <div class="mt-auto">
+                <a class="nav-link text-danger" href="/Logout">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content flex-grow-1 p-4">
+        <h1 class="mb-4">New Question</h1>
+        <form method="POST">
+            <div>
+                @if (Model.errormessage.Length > 0)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>@Model.errormessage</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                }
+            </div>
+            <div class="card p-3 w-100">
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label"><strong>Select Quiz</strong></label>
+                        <select class="form-control" name="quiz">
+                            <option value="">-- Select Quiz --</option>
+                            @foreach (var course in Model.quizzes)
+                            {
+                                <option value="@course.QuizId">@course.title | @course.coursecode</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label"><strong>Question Text</strong></label>
+                        <textarea name="questiontxt" class="form-control"></textarea>
+                    </div>
+                 </div>
+                    <div class="row">
+                    <div class="col-6">
+                        <label class="form-label">Option A</label>
+                        <input type="text" name="optionA" value="" class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Option B</label>
+                        <input type="text" name="optionB" value="" class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Option C</label>
+                        <input type="text" name="optionC" value="" class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Option D</label>
+                        <input type="text" name="optionD" value="" class="form-control" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                    
+                    <label class="form-label"><strong>Correct Option</strong></label>
+                    <select id="correctAnswer" name="correctoption" class="form-control">
+                        <option value="">--Select Correct Option--</option>
+                        <option value="A">Option A</option>
+                        <option value="B">Option B</option>
+                        <option value="C">Option C</option>
+                        <option value="D">Option D</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label"><strong>Enter Marks</strong></label>
+                        <input type="number" name="markstxt" value="" class="form-control" />
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-primary" name="submit">ADD</button>
+                </div>
+                <div>
+                    @if (Model.successmessage.Length > 0)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>@Model.successmessage</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+

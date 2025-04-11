@@ -1,0 +1,149 @@
+﻿@page
+@model OnlineExamination.Pages.ManageCourseModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Manage Course";
+}
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <nav class="sidebar bg-white vh-100 d-flex flex-column p-3 shadow-lg">
+        <button class="btn btn-outline-primary mb-3 d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+            Admin
+        </button>
+        <div class="collapse d-md-block" id="sidebarMenu">
+            <ul class="nav flex-column">
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/AdminDashboard" ? "active" : "")" href="/AdminDashboard">
+                        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageQuizzes" ? "active" : "")" href="/ManageQuizzes">
+                        <i class="fas fa-tasks me-2"></i> Manage Quizzes
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageQuestions" ? "active" : "")" href="/ManageQuestions">
+                        <i class="fas fa-question-circle me-2"></i> Manage Questions
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageCourses" ? "active" : "")" href="/ManageCourses">
+                        <i class="fa-regular fa-file me-2"></i> Manage Courses
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/ManageUsers" ? "active" : "")" href="/ManageUsers">
+                        <i class="fas fa-users me-2"></i> Manage Users
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link @(ViewContext.HttpContext.Request.Path == "/Results" ? "active" : "")" href="/Results">
+                        <i class="fas fa-chart-bar me-2"></i> Results
+                    </a>
+                </li>
+            </ul>
+            <div class="mt-auto">
+                <a class="nav-link text-danger" href="/Logout">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content flex-grow-1 p-4">
+
+        <div class="container">
+            <h2 class="mb-4 text-primary"><i class="bi bi-people-fill"></i> Manage Courses</h2>
+        
+
+        @if (Model.errormessage.Length > 0)
+        { 
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong style="color:red;">@Model.errormessage</strong>
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+          </div>
+        }
+
+        <form method="POST">
+            <div class="card p-3">
+                <div class="row">
+
+                    <div class="col">
+                        <label class="form-label">Course Code</label>
+                        <input type="text" name="coursecode" value="" class="form-control" />
+                    </div>
+
+                    <div class="col">
+                        <label class="form-label">Course Name</label>
+                        <input type="text" name="coursename" value="" class="form-control" />
+                    </div>
+
+                </div>
+
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-primary" name="submit">Add Course</button>
+                </div>
+                <div>
+                    @* @if (Model.successmessage.Length > 0) *@
+                    @* { *@
+                    @*     <div class="alert alert-success alert-dismissible fade show" role="alert"> *@
+                    @*         <strong>@Model.successmessage</strong> *@
+                    @*         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button> *@
+                    @*     </div> *@
+                    @* } *@
+                </div>
+            </div>
+
+
+        </form>
+
+        @* Displaying error messages *@
+        @* <label id="messageLabel" class="text-@Model.MessageColor text-center fs-6">@Model.Message</label> *@
+        <br />
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by name or email">
+                    </div>
+                </div>
+            </div>
+		<div class="table-responsive">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var couse in Model.myCourse) 
+                { 
+                    <tr>
+                        <td>@couse.CourseId</td>
+                        <td>@couse.CourseName</td>
+                        <td>
+                            <a href="/Course/Edit/@couse.CourseId" class="btn btn-warning btn-sm">Edit</a>
+                            <button class="btn btn-danger btn-sm" onclick="deleteCourse(@couse.CourseId)">Delete</button>
+                         </td>
+                     </tr>
+                 } 
+            </tbody>
+
+        </table>
+        </div>
+    </div>
+    </div>
+</div>
+<script>
+    function deleteQuiz(quizId) {
+        if (confirm('Are you sure you want to delete this course?')) {
+            window.location.href = '/Course/Delete/' + quizId;
+        }
+    }
+</script>
+
