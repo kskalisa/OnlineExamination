@@ -7,7 +7,7 @@ namespace OnlineExamination.Pages
 {
     public class CreateQuizModel : PageModel
     {
-        string connString = "Data Source=DESKTOP-PLETT3Q\\SQLEXPRESS;Initial Catalog=OnlineExamination;Integrated Security=True;TrustServerCertificate=True";
+        string connString = "Data Source=Taufic\\SQLEXPRESS;Initial Catalog=OnlineExamination;Integrated Security=True;TrustServerCertificate=True";
         public string errormessage = "";
         public string successmessage = "";
         public Quiz quiz = new Quiz();

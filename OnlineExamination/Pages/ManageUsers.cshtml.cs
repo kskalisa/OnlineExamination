@@ -6,7 +6,7 @@ namespace OnlineExamination.Pages
 {
     public class ManageUserModel : PageModel
     {
-        string connString = "Data Source=DESKTOP-PLETT3Q\\SQLEXPRESS;Initial Catalog=OnlineExamination;Integrated Security=True;TrustServerCertificate=True";
+        string connString = "Data Source=Taufic\\SQLEXPRESS;Initial Catalog=OnlineExamination;Integrated Security=True;TrustServerCertificate=True";
         public List<Users> users = new List<Users>();
 
         public string? errormessage { get; set; }

@@ -7,7 +7,7 @@ namespace OnlineExamination.Pages.Shared
 {
     public class ManageQuizzesModel : PageModel
     {
-        string connString = "Data Source=DESKTOP-PLETT3Q\\SQLEXPRESS;Initial Catalog=OnlineExamination;Integrated Security=True;TrustServerCertificate=True";
+        string connString = "Data Source=Taufic\\SQLEXPRESS;Initial Catalog=OnlineExamination;Integrated Security=True;TrustServerCertificate=True";
         public List<Quiz> quizzes = new List<Quiz>();
         public string? errormessage { get; set; } // Added missing property for error message
        
